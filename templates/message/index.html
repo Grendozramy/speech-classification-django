@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<!-- Footable css -->
+<link href="{% static 'libs/footable/footable.core.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- Start Page Content here -->
+<!-- ============================================================== -->
+
+<div class="content-page">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+            {% include "base_page_title.html" %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Message List</h4><br>
+                            <a href="{% url 'message:create' %}">
+                                <button type="button" class="btn btn-success">Create</button>
+                            </a>
+                            <p></p>
+                            <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>NIM</th>
+                                        <th>Full Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if messages %}
+                                    {% for message in messages %}
+                                    <tr>
+                                        <th>{{ message.nim }}</th>
+                                        <th>{{  message.name  }}</th>
+                                        <td>
+                                            <a href="{% url 'message:edit' message.id %}">
+                                                <button type="button" class="ladda-button btn btn-info"
+                                                    data-style="slide-right"><i class="mdi mdi-square-edit-outline"></i>
+                                                    Edit
+                                                </button>
+                                            </a>
+                                            <a href="{% url 'message:detail' message.id %}">
+                                                <button type="button" class="ladda-button btn btn-primary"
+                                                    data-style="slide-right"><i class="mdi mdi-alert-circle-outline"></i>
+                                                    Detail
+                                                </button>
+                                            </a>
+
+                                            <button type="button" class="btn btn-danger waves-effect waves-light"
+                                                data-toggle="modal" data-target=".bs-example-modal-center{{file.id}}"><i
+                                                    class="mdi mdi-delete"></i> Delete</button>
+
+                                            <div class="modal fade bs-example-modal-center{{file.id}}" tabindex="-1"
+                                                role="dialog" aria-labelledby="myCenterModalLabel" aria-hidden="true"
+                                                style="display: none;">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title" id="myCenterModalLabel">Are you sure
+                                                                to delete?</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-hidden="true">×</button>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary waves-effect"
+                                                                data-dismiss="modal">Close</button>
+                                                            <a href="{% url 'message:delete' message.id %}">
+                                                                <button type="button"
+                                                                    class="btn btn-danger waves-effect waves-light"
+                                                                    data-style="slide-right"><i
+                                                                        class="mdi mdi-delete"></i> Delete</button>
+                                                            </a>
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+                                                </div><!-- /.modal-dialog -->
+                                            </div><!-- /.modal -->
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="5">Data tidak ditemukan.</td>
+                                </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+    </div> 
+
+    {% include "base_footer.html" %}
+
+</div>
+
+<!-- ============================================================== -->
+<!-- End Page content -->
+<!-- ============================================================== -->
+
+{% endblock %}

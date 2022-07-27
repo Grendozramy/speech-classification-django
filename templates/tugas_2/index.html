@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<!-- Footable css -->
+<link href="{% static 'libs/footable/footable.core.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- Start Page Content here -->
+<!-- ============================================================== -->
+
+<div class="content-page">
+    <div class="content">
+        <!-- Start Content-->
+        <div class="container-fluid">
+            {% include "base_page_title.html" %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Tugas 2</h4>
+                            <p></p>
+                            <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>NIM</th>
+                                        <th>Full Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1301193303</th>
+                                        <th>Guido Tamara</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+    </div> 
+
+    {% include "base_footer.html" %}
+
+</div>
+
+<!-- ============================================================== -->
+<!-- End Page content -->
+<!-- ============================================================== -->
+
+{% endblock %}
