@@ -39,7 +39,7 @@
                                     {% for message in messages %}
                                     <tr>
                                         <th>{{ message.nim }}</th>
-                                        <th>{{  message.name  }}</th>
+                                        <th>{{ message.name }}</th>
                                         <td>
                                             <a href="{% url 'message:edit' message.id %}">
                                                 <button type="button" class="ladda-button btn btn-info"
@@ -49,7 +49,8 @@
                                             </a>
                                             <a href="{% url 'message:detail' message.id %}">
                                                 <button type="button" class="ladda-button btn btn-primary"
-                                                    data-style="slide-right"><i class="mdi mdi-alert-circle-outline"></i>
+                                                    data-style="slide-right"><i
+                                                        class="mdi mdi-alert-circle-outline"></i>
                                                     Detail
                                                 </button>
                                             </a>
@@ -80,26 +81,25 @@
                                                                         class="mdi mdi-delete"></i> Delete</button>
                                                             </a>
                                                         </div>
-                                                    </div><!-- /.modal-content -->
-                                                </div><!-- /.modal-dialog -->
-                                            </div><!-- /.modal -->
-                                        </td>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     </tr>
                                     {% endfor %}
-                                {% else %}
-                                <tr>
-                                    <td colspan="5">Data tidak ditemukan.</td>
-                                </tr>
-                                {% endif %}
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="5">Data tidak ditemukan.</td>
+                                    </tr>
+                                    {% endif %}
                                 </tbody>
                             </table>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
 
-    </div> 
+    </div>
 
     {% include "base_footer.html" %}
 

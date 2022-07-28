@@ -1,20 +1,14 @@
-from unicodedata import name
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-
-from django.http import HttpResponse
-from django.template import loader
-from django.http import Http404
 from django.urls import reverse
 
 from .models import Message
 
 # Create your views here.
 def index(request):
-    messages = Message.objects.all()
+    message = Message.objects.all()
     context = {
-        'messages': messages
+        'messages': message
     }
 
     return render(request, 'message/index.html', context)
@@ -30,15 +24,23 @@ def store(request):
     messages = Message(id, nim,name,word)
     messages.save()
 
-    return redirect('/message/')
+    return HttpResponseRedirect(reverse('message:index'))
     
 def detail(request, id):
-    message = Message.objects.get(id=id)
-    return render(request, 'message/detail.html', {"message": message})
+    message = get_object_or_404(Message, id=id)
+    context = {
+        'message': message
+    }
+     
+    return render(request, 'message/detail.html', context)
 
 def edit(request, id):
-    message = Message.objects.get(id=id)
-    return render(request, 'message/edit.html', {"message": message})
+    message = get_object_or_404(Message, id=id)
+    context = {
+        'message': message
+    }
+    
+    return render(request, 'message/edit.html', context)
 
 
 def update(request, id):
@@ -48,10 +50,10 @@ def update(request, id):
     message.word = request.POST['word']
     message.save()
 
-    return redirect('/message/', id)
+    return HttpResponseRedirect(reverse('message:index'))
 
 def delete(request, id):
     message = get_object_or_404(Message, id=id)
     message.delete()
     
-    return redirect('/message/')
+    return HttpResponseRedirect(reverse('message:index'))
