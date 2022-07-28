@@ -28,6 +28,8 @@ urlpatterns = [
     path('transcribe/', include('transcribe.urls')),
     path('tugas_2/', include('tugas_2.urls')),
     path('message/', include('message.urls')),
+    path('api/', include('snippets_api.urls')),
+    path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),   
 ]
 
