@@ -28,7 +28,11 @@ urlpatterns = [
     path('transcribe/', include('transcribe.urls')),
     path('tugas_2/', include('tugas_2.urls')),
     path('message/', include('message.urls')),
+    path('message/', include('message.urls')),
+    path('workplace_user_network/', include('workplace_user_network.urls')),
+    
     path('api/', include('snippets_api.urls')),
+    
     path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),   
 ]

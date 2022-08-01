@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'message.apps.MessageConfig',
     #app snippets-api
     'snippets_api', 
+    #app WorkplaceUserNetwork
+    'workplace_user_network.apps.WorkplaceUserNetworkConfig'
 ]
 
 MIDDLEWARE = [
