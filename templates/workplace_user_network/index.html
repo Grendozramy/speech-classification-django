@@ -45,8 +45,8 @@
                         <h4 class="page-title">Workplace User Network</h4>
                     </div>
                 </div>
-            </div>     
-           <!-- end page title -->
+            </div>
+            <!-- end page title -->
 
             <div class="row">
                 <div class="col-12">
@@ -56,39 +56,42 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <p class="mb-1 font-weight-bold text-muted mt-3 mt-md-0">Division:</p>
-                                    <select class="form-control select2-multiple" data-toggle="select2" multiple="multiple">
-                                        <option value="FD">Finance Division</option>
-                                        <option value="SMD">Strategic Marketing Division</option>
-                                        <option value="SDD">Sales & Distribution Division</option>
-                                        <option value="AD">Audit Division</option>
+                                    <select class="form-control division" data-toggle="select2" multiple="multiple">
+                                        {% for data in division %}
+                                        <option>{{data.name}}</option>
+                                        {% endfor %}
                                     </select>
-                                </div> 
+                                </div>
                                 <div class="col-md-3">
                                     <p class="mb-1 font-weight-bold text-muted">Type of Interaction:</p>
-                                    <select class="form-control select2-multiple" data-toggle="select2" multiple="multiple">
-                                        <option value="FD">Intradivision</option>
-                                        <option value="SMD">Interdivision</option>
-                                        <option value="SDD">NA</option>                                        
+                                    <select class="form-control interaction" data-toggle="select2" multiple="multiple">
+                                        {% for data in interaction %}
+                                        <option>{{data.name}}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group mb-3">
                                         <label>Month From</label>
-                                        <input type="text" id="range-datepicker" class="form-control" placeholder="Start to End">
+                                        <div class="input-group input-daterange">
+                                            <input type="text" class="form-control datepicker" id="startdate">
+                                            <div class="input-group-addon">to</div>
+                                            <input type="text" class="form-control datepicker" id="enddate">
+                                        </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div><!-- end card-body-->
                     </div><!-- end card-->
                 </div> <!-- end col-->
             </div>
 
-            <!-- start datatable 1 --> 
+            <!-- start datatable 1 -->
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title mb-4">Workplace Network</h4>
                     <div class="table-responsive">
-                        <table class="display table table-hover">
+                        <table id="table-1" class="display table table-hover">
                             <thead class="bg-secondary text-light">
                                 <tr>
                                     <th>From</th>
@@ -96,56 +99,32 @@
                                     <th>Posting.division</th>
                                     <th>Comment.division</th>
                                     <th>Posting.department</th>
-                                    <th>Comment.department</th>                   
-                                    <th>Amount</th>                   
+                                    <th>Comment.department</th>
+                                    <th>Interaction</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
                                 </tr>
-                            </thead>                       
+                            </thead>
                             <tbody>
+                                {% if  workplace_user_network%}
+                                {% for data in workplace_user_network %}
                                 <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
+                                    <td>{{ data.from_user }}</td>
+                                    <td>{{ data.to_user }}</td>
+                                    <td>{{ data.posting_division }}</td>
+                                    <td>{{ data.comment_division }}</td>
+                                    <td>{{ data.posting_department }}</td>
+                                    <td>{{ data.comment_department }}</td>
+                                    <td>{{ data.interaction }}</td>
+                                    <td>{{ data.amount }}</td>
+                                    <td>{{ data.created|date:'Y-m-d' }}</td>
                                 </tr>
+                                {% endfor %}
+                                {% else %}
                                 <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
+                                    <td colspan="7">Data tidak ditemukan.</td>
                                 </tr>
-                                <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
-                                </tr>                                
+                                {% endif %}
                             </tbody>
                         </table>
                     </div>
@@ -153,12 +132,12 @@
             </div> <!-- end card -->
             <!-- end datatable 1 -->
 
-            <!-- start datatable 2 --> 
+            <!-- start datatable 2 -->
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title mb-4">Workplace Personal Network</h4>
                     <div class="table-responsive">
-                        <table class="display table table-hover">
+                        <table id="table-2" class="display table table-hover">
                             <thead class="bg-secondary text-light">
                                 <tr>
                                     <th>From</th>
@@ -166,56 +145,30 @@
                                     <th>Posting.division</th>
                                     <th>Comment.division</th>
                                     <th>Posting.department</th>
-                                    <th>Comment.department</th>                   
-                                    <th>Amount</th>                   
+                                    <th>Comment.department</th>
+                                    <th>Interaction</th>
+                                    <th>Amount</th>
                                 </tr>
-                            </thead>                       
+                            </thead>
                             <tbody>
+                                {% if  workplace_user_network%}
+                                {% for data in workplace_user_network %}
                                 <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
+                                    <td>{{ data.from_user }}</td>
+                                    <td>{{ data.to_user }}</td>
+                                    <td>{{ data.posting_division }}</td>
+                                    <td>{{ data.comment_division }}</td>
+                                    <td>{{ data.posting_department }}</td>
+                                    <td>{{ data.comment_department }}</td>
+                                    <td>{{ data.interaction }}</td>
+                                    <td>{{ data.amount }}</td>
                                 </tr>
+                                {% endfor %}
+                                {% else %}
                                 <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
+                                    <td colspan="7">Data tidak ditemukan.</td>
                                 </tr>
-                                <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
-                                </tr>                                
+                                {% endif %}
                             </tbody>
                         </table>
                     </div>
@@ -223,12 +176,12 @@
             </div> <!-- end card -->
             <!-- end datatable 2 -->
 
-            <!-- start datatable 3 --> 
+            <!-- start datatable 3 -->
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title mb-4">Workplace Organization Network</h4>
                     <div class="table-responsive">
-                        <table class="display table table-hover">
+                        <table id="table-3" class="display table table-hover">
                             <thead class="bg-secondary text-light">
                                 <tr>
                                     <th>From</th>
@@ -236,56 +189,28 @@
                                     <th>Posting.division</th>
                                     <th>Comment.division</th>
                                     <th>Posting.department</th>
-                                    <th>Comment.department</th>                   
-                                    <th>Amount</th>                   
+                                    <th>Comment.department</th>
+                                    <th>Amount</th>
                                 </tr>
-                            </thead>                       
+                            </thead>
                             <tbody>
+                                {% if  workplace_user_network%}
+                                {% for data in workplace_user_network %}
                                 <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
+                                    <td>{{ data.from_user }}</td>
+                                    <td>{{ data.to_user }}</td>
+                                    <td>{{ data.posting_division }}</td>
+                                    <td>{{ data.comment_division }}</td>
+                                    <td>{{ data.posting_department }}</td>
+                                    <td>{{ data.comment_department }}</td>
+                                    <td>{{ data.amount }}</td>
                                 </tr>
+                                {% endfor %}
+                                {% else %}
                                 <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
+                                    <td colspan="7">Data tidak ditemukan.</td>
                                 </tr>
-                                <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>Abdul Muhardiansyah</td>
-                                    <td>Albert Christian Gultom</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>Area Marketing Division</td>
-                                    <td>CPE</td>
-                                    <td>CPA</td>
-                                    <td>1</td>
-                                </tr>                                
+                                {% endif %}
                             </tbody>
                         </table>
                     </div>
@@ -335,9 +260,77 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var table = $('table.display').DataTable({
+        var table_1 = $('#table-1').DataTable({
             scrollY: '100%',
+            "oLanguage": {
+                "sSearch": "Filter Data" //Will appear on search form
+            },
+
         });
+
+        table_1.column(6).visible(false);
+        table_1.column(8).visible(false);
+        $("select.division").on('keyup change', function () {
+            table_1.search($(this).val().join("|"), true, false).draw()
+        });
+
+        $("select.interaction").on('keyup change', function () {
+            table_1.column(6).search($(this).val().join("|"), true).draw();
+        });
+
+        $("#startdate").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            format: 'yyyy-mm-dd',
+            "onSelect": function (date) {
+                minDateFilter = new Date(date).getTime();
+                table_1.draw();
+            }
+        }).keyup(function () {
+            minDateFilter = new Date(this.value).getTime();
+            table_1.draw();
+        });
+
+        $("#enddate").datepicker({
+            changeYear: true,
+            changeMonth: true,
+            format: 'yyyy-mm-dd',
+            "onSelect": function (date) {
+                maxDateFilter = new Date(date).getTime();
+                table_1.draw();
+            }
+        }).keyup(function () {
+            maxDateFilter = new Date(this.value).getTime();
+            table_1.draw();
+        });
+
+        // Date range filter
+        minDateFilter = "";
+        maxDateFilter = "";
+
+        $.fn.dataTableExt.afnFiltering.push(
+            function (oSettings, aData, iDataIndex) {
+                if (typeof aData._date === 'undefined') {
+                    aData._date = getTime(aData[8]);
+                }
+
+                if (minDateFilter && !isNaN(minDateFilter)) {
+                    if (aData._date < minDateFilter) {
+                        return false;
+                    }
+                }
+
+                if (maxDateFilter && !isNaN(maxDateFilter)) {
+                    if (aData._date > maxDateFilter) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        );
+
+
     });
 </script>
 {% endblock  %}
