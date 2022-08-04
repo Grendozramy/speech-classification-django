@@ -97,7 +97,7 @@
                         </a>
                     </div>
                     <div class="table-responsive">                      
-                        <table id="table-1" class="display table table-hover">
+                        <table id="table-1" class="display responsive nowrap table table-hover">
                             <thead class="bg-secondary text-light">
                                 <tr>
                                     <th>From</th>
@@ -173,7 +173,7 @@
                                 {% endfor %}
                                 {% else %}
                                 <tr>
-                                    <td colspan="7">Data tidak ditemukan.</td>
+                                    <td colspan="8" class="text-center">No data available in table</td>
                                 </tr>
                                 {% endif %}
                             </tbody>
@@ -217,7 +217,7 @@
                                 {% endfor %}
                                 {% else %}
                                 <tr>
-                                    <td colspan="7">Data tidak ditemukan.</td>
+                                    <td colspan="8" class="text-center">No data available in table</td>
                                 </tr>
                                 {% endif %}
                             </tbody>
@@ -259,7 +259,7 @@
                                 {% endfor %}
                                 {% else %}
                                 <tr>
-                                    <td colspan="7">Data tidak ditemukan.</td>
+                                    <td colspan="8" class="text-center">No data available in table</td>
                                 </tr>
                                 {% endif %}
                             </tbody>
@@ -315,7 +315,9 @@
         var table_1 = $('#table-1').DataTable({
             scrollY: '100%',
             "order": [[ 8, "desc" ]],
-            
+            "language": {
+                "zeroRecords": "No data available in table"
+              }
         });
 
         table_1.column(6).visible(false);
