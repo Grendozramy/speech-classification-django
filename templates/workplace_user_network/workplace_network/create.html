@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link href="{% static 'libs/select2/select2.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+
+<div class="content-page">
+    <div class="content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Workplace User Network</li>
+                            </ol>
+                        </div>
+                        <h4 class="page-title">Workplace User Network</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Create Workplace Network</h4>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form method="post" action="{% url 'workplace_user_network:store' %}">
+                                        {% csrf_token %}
+                                        {% comment %} <input type="hidden" id="id" name="id"
+                                            value="{{ workplace_networks.id }}"> {% endcomment %}
+                                        <div class="form-group row">
+                                            <label for="inputWorkplaceNetwork" class="col-4 col-form-label">From
+                                                User</label>
+                                            <div class="col-7">
+                                                <select class="form-control" name="from_user_id" data-toggle="select2">
+                                                    <option>Select</option>
+                                                    {% for user in users %}
+                                                    <option value="{{ user.id }}">{{ user.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputWorkplaceNetwork" class="col-4 col-form-label">To
+                                                User</label>
+                                            <div class="col-7">
+                                                <select class="form-control" name="to_user_id" data-toggle="select2">
+                                                    <option>Select</option>
+                                                    {% for user in users %}
+                                                    <option value="{{ user.id }}">{{ user.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputWorkplaceNetwork"
+                                                class="col-4 col-form-label">Posting.division</label>
+                                            <div class="col-7">
+                                                <select class="form-control" name="posting_division_id"
+                                                    data-toggle="select2">
+                                                    <option>Select</option>
+                                                    {% for division in divisions %}
+                                                    <option value="{{ division.id }}">{{ division.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputWorkplaceNetwork"
+                                                class="col-4 col-form-label">Posting.department</label>
+                                            <div class="col-7">
+                                                <select class="form-control" name="posting_department_id"
+                                                    data-toggle="select2">
+                                                    <option>Select</option>
+                                                    {% for department in departments %}
+                                                    <option value="{{ department.id }}">{{ department.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputWorkplaceNetwork"
+                                                class="col-4 col-form-label">Comment.division</label>
+                                            <div class="col-7">
+                                                <select class="form-control" name="comment_division_id"
+                                                    data-toggle="select2">
+                                                    <option>Select</option>
+                                                    {% for division in divisions %}
+                                                    <option value="{{ division.id }}">{{ division.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputWorkplaceNetwork"
+                                                class="col-4 col-form-label">Comment.department</label>
+                                            <div class="col-7">
+                                                <select class="form-control" name="comment_department_id"
+                                                    data-toggle="select2">
+                                                    <option>Select</option>
+                                                    {% for department in departments %}
+                                                    <option value="{{ department.id }}">{{ department.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputWorkplaceNetwork"
+                                                class="col-4 col-form-label">Interaction</label>
+                                            <div class="col-7">
+                                                <select class="form-control" name="interaction_id"
+                                                    data-toggle="select2">
+                                                    <option>Select</option>
+                                                    {% for interaction in interactions %}
+                                                    <option value="{{ interaction.id }}">{{ interaction.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="inputWorkplaceNetwork"
+                                                class="col-4 col-form-label">Amount</label>
+                                            <div class="col-7">
+                                                <input type="number" name="amount"
+                                                    class="form-control parsley-success" placeholder="Amount">
+                                            </div>
+                                        </div>
+                                        <ul class="list-inline wizard mt-3">
+                                            <li class="previous list-inline-item">
+                                                <a href="{% url 'workplace_user_network:index' %}">
+                                                    <button type="button" class="ladda-button btn btn-info"
+                                                        data-style="slide-right"><i
+                                                            class="mdi mdi-backspace-outline"></i> Back
+                                                    </button>
+                                                </a>
+                                            </li>
+                                            <li class="next list-inline-item">
+                                                <button type="button" class="btn btn-success waves-effect waves-light"
+                                                    data-toggle="modal" data-style="slide-right"
+                                                    data-target=".bs-example-modal-center"><i
+                                                        class="mdi mdi-content-save-outline mr-1"></i> Save</button>
+                                                <div class="modal fade bs-example-modal-center" tabindex="-1"
+                                                    role="dialog" aria-labelledby="myCenterModalLabel"
+                                                    aria-hidden="true" style="display: none;">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title" id="myCenterModalLabel">Are you
+                                                                    sure
+                                                                    to save?</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-hidden="true">×</button>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button"
+                                                                    class="btn btn-secondary waves-effect"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="submit"
+                                                                    class="btn btn-success waves-effect waves-light"
+                                                                    data-style="slide-right"><i
+                                                                        class="mdi mdi-content-save-outline mr-1"></i> Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "base_footer.html" %}
+</div>
+
+<!-- ============================================================== -->
+<!-- End Page content -->
+<!-- ============================================================== -->
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'libs/select2/select2.min.js' %}"></script>
+<script src="{% static 'js/pages/form-advanced.init.js' %}"></script>
+{% endblock %}
