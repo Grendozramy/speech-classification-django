@@ -189,6 +189,8 @@
             </div> <!-- end card -->
             <!-- end datatable 1 -->
 
+            <div class="mx-auto mb-3" id="network-graph" style="width: 500px; height: 400px; "></div>
+
             <!-- start datatable 2 -->
             <div class="card">
                 <div class="card-body">
@@ -288,6 +290,9 @@
 <script type="application/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="application/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="application/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-core.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-graph.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.8.0/js/anychart-data-adapter.min.js"></script>
 <script src="{% static 'libs/moment/moment.min.js' %}"></script>
 <script src="{% static 'libs/jquery-nice-select/jquery.nice-select.min.js' %}"></script>
 <script src="{% static 'libs/switchery/switchery.min.js' %}"></script>
@@ -327,7 +332,7 @@
         {
             var table_1 = $('#table-1').DataTable({
                 scrollY: '100%',
-                "order": [[ 8, "desc" ]],
+                "order": [[ 8, "asc" ]],
                 "language": {
                     "zeroRecords": "No data available in table"
                 }, 
@@ -422,6 +427,32 @@
             return true;
         }
         );
+
+        anychart.onDocumentReady(function () {
+            // create data
+            var data = {
+                nodes: [
+                    '{%for data in workplace_network%}',
+                    {id: '{{data.from_user}}'},
+                    '{%endfor%}', 
+                ],
+                edges: [
+                    '{%for data in workplace_network%}',
+                    {from: '{{data.from_user}}',
+                    to: '{{data.to_user}}'},
+                    '{%endfor%}',
+
+                ]
+            };
+            
+            var chart = anychart.graph(data);
+            chart.background().fill("#303842");
+            chart.interactivity().zoomOnMouseWheel(false);
+            
+            chart.container("network-graph");
+            chart.draw();
+            
+        });
 
     });
 </script>
